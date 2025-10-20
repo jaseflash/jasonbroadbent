@@ -3,6 +3,7 @@
 **Disclaimer: This setup is for POC purposes and not fit for production**
 
 #   Terraform & kubernetes install with Cillium CNI for Node connectivity
+#   All .tf files are in this directory that are needed to build a kubernetes cluster in AWS with 2 nodes (small & medium)
 
 #    install terraform, kubectl, aws cli, helm
 
