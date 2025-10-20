@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: jaseb-eks-lMEnGiXj
+  name: cluster-name
   region: eu-west-1
 
 managedNodeGroups:
