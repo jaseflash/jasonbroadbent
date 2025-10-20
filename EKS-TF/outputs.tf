@@ -32,3 +32,7 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = local.cluster_name
 }
+
+output "bastian_publicip" {
+  value = "ssh -i ${aws_key_pair.demo.key_name}.pem ubuntu@${aws_instance.bastian.public_ip}"
+}
