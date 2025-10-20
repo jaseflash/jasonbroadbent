@@ -41,6 +41,12 @@ helm install cilium cilium/cilium --version 1.17.4 \
 kubectl get nodes # all nodes will be ready now
 kubectl get pods # all pods will be ready now including cilium pods
 
+kubectl get ds -A
+
+<img width="2686" height="218" alt="image" src="https://github.com/user-attachments/assets/2ec1517c-bf83-4dcc-b768-60a812b6a3c6" />
+
+
+
 ```
 
 ```
