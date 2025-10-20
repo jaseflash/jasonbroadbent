@@ -4,13 +4,13 @@ variable "region" {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = var.region
 }
 
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "jaseb-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -20,16 +20,23 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "2.66.0"
+  version = "6.4.0"
 
-  name                 = "jasonb-vpc"
+  name                 = "jaseb-vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
-  enable_dns_hostnames = true
+  database_subnets     = ["10.0.21.0/24", "10.0.22.0/24"]
+# enable_nat_gateway   = true
+# single_nat_gateway   = true
+# enable_dns_hostnames = true
+
+# NAT Gateway Configuration (required for private subnets to access the internet)
+  enable_nat_gateway     = true
+  single_nat_gateway     = false # Create one NAT Gateway per public subnet/AZ
+  enable_dns_hostnames   = true
+  enable_dns_support     = true
 
   tags = {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
